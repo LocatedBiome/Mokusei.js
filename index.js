@@ -4,6 +4,9 @@ const ms = require("ms");
 const bot = new Discord.Client();
 const { Token } = require("./config.json");
 const { prefix } = require("./config.js");
+const mongoose = require("./database/mongoose");
+const { channel } = require("diagnostics_channel");
+require("dotenv").config();
 bot.commands = new Discord.Collection();
 
 const commandFiles = fs
@@ -28,8 +31,17 @@ bot.on("ready", () => {
     },
   });
 });
-bot.on('guildMemberAdd', member => {
-  member.send("Welcome to the server!");
+bot.on("guildMemberAdd", (member) => {
+  const DMWelcome = new Discord.MessageEmbed()
+    .setColor("#0099ff")
+    .setTitle("Welcome to LocatedBiome!")
+    .setAuthor(channel.author)
+    .setDescription("Invite your friends with this link!")
+    .setURL("https://discord.gg/urTVy2XuSs")
+    .setTimestamp()
+    .setFooter("Mokusei.js");
+
+  channel.send(DMWelcome)
 });
 bot.on("message", (message) => {
   if (message.content.startsWith("#test")) {
@@ -56,6 +68,7 @@ bot.on("message", (message) => {
     bot.commands.get("play").execute(message, args);
   } else if (command === "leave") {
     bot.commands.get("leave").execute(message, args);
-  } 
+  }
 });
+mongoose.init();
 bot.login(Token);
