@@ -38,7 +38,7 @@ module.exports = {
 
     if (video) {
       const stream = ytdl(video.url, { filter: "audioonly" });
-      connection.play(stream, { seek: 0, volume: 0.25 }).on("finish", () => {
+      connection.play(stream, { seek: 0, volume: 0.5 }).on("finish", () => {
         voiceChannel.leave();
       });
 
