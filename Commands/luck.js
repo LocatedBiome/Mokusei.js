@@ -1,9 +1,13 @@
+const { get } = require("mongoose");
 const yts = require("yt-search");
 const ytdl = require("ytdl-core");
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 module.exports = {
-  name: "play",
-  description: "Joines and plays a video from youtube",
+  name: "luck",
+  description: "Plays any song at a random volume",
   async execute(message, args) {
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel)
@@ -29,7 +33,6 @@ module.exports = {
     };
 
     const connection = await voiceChannel.join();
-
     const videoFinder = async (query) => {
       const videoResult = await yts(query);
       return videoResult.videos.length > 1 ? videoResult.videos[0] : null;
@@ -37,12 +40,13 @@ module.exports = {
     var video = await videoFinder(args.join(" "));
 
     if (video) {
+      let LOLOLOLOLOLGoodLuckvolume = Math.floor((Math.random() * 100) + 1);
       const stream = ytdl(video.url, { filter: "audioonly" });
-      connection.play(stream, { seek: 0, volume: 0.50 }).on("finish", () => {
+      connection.play(stream, { seek: 0, volume: LOLOLOLOLOLGoodLuckvolume }).on("finish", () => {
         voiceChannel.leave();
       });
 
-      await message.reply(`Now playing ***${video.title}***`);
+      await message.reply(`Now playing ***${video.title}*** at ***__${LOLOLOLOLOLGoodLuckvolume}__*** volume`);
     }
   },
 };
