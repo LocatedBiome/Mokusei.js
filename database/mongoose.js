@@ -13,8 +13,8 @@ module.exports = {
             //useFindAndModify: false
         };
 
-        mongoose.connect(`mongodb+srv://Mokusei:${process.env.PASS}@cluster0.xbxt7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, dbOptions);
-
+        mongoose.connect(`mongodb+srv://LocatedBiome:${process.env.PASS}@cluster0.xbxt7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, dbOptions);
+        
         mongoose.Promise = global.Promise;
 
         mongoose.connection.on('connected', () => {
